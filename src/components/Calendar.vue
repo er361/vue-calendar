@@ -1,8 +1,11 @@
 <template>
-    <div class="calendar">
-        <dateChanger/>
-        <days class="daysTable"/>
+    <div>
+        <div class="calendar">
+            <dateChanger @changeMonth="setMonthNumber"/>
+            <days :max-day-num="maxDayMonth" class="daysTable"/>
+        </div>
     </div>
+
 </template>
 
 <script>
@@ -17,19 +20,27 @@
         },
         data() {
             return {
-                isActive:false
+                monthNumber: 0,
             }
         },
-        methods:{
-            setActive(){
-
+        methods: {
+            setMonthNumber(monthNumber) {
+                this.monthNumber = monthNumber;
+            }
+        },
+        computed: {
+            maxDayMonth() {
+                console.log('number', this.monthNumber);
+                let maxDayNumber = new Date(2021,this.monthNumber,0).getDate();
+                console.log(maxDayNumber)
+                return maxDayNumber;
             }
         }
     }
 </script>
 <style scoped>
     .calendar {
-        margin: auto;
+        margin: 0 10px 0 0;
         border: 1px solid cadetblue;
         font-size: 20px;
         width: 270px;

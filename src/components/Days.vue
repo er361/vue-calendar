@@ -1,9 +1,9 @@
 <template>
     <div class="grid">
-        <span v-for="index in 31"
+        <span v-for="index in maxDayNum"
               :key="index"
               style="cursor: pointer"
-              @click="setActive(index),getDate()"
+              @click="setActive(index)"
               class="day"
               :class="{active: activeNumber === index}"
         >
@@ -17,6 +17,7 @@
 <script>
     export default {
         name: 'Days',
+        props:['maxDayNum'],
         data() {
             return {
                 activeNumber: null
@@ -26,7 +27,7 @@
             setActive(index) {
                 this.activeNumber = index;
             },
-            getDate(){
+            getDate() {
                 console.log('date')
             }
         }
@@ -34,10 +35,11 @@
 
 </script>
 <style scoped>
-    .active{
+    .active {
         border: 1px solid aquamarine;
     }
-    .grid{
+
+    .grid {
 
         display: grid;
         grid-template-columns: 30px 30px 30px 30px 30px 30px 30px;
