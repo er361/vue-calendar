@@ -4,9 +4,7 @@
 
         />
         <div>
-            <label for="curDate">Текущая дата</label>
-            <br>
-            <input id="curDate" type="text" :value="$store.getters.fullDate" size="30">
+            <input id="curDate" type="text" :value="$store.getters.fullDate">
         </div>
 
     </div>

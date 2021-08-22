@@ -28,7 +28,7 @@
                 let curDate = new Date();
                 year = curDate.getFullYear();
                 month = curDate.getMonth();
-                day = curDate.getDay();
+                day = curDate.getDate();
             } else {
                 let dateSplit = this.date.split('-');
                 year = dateSplit[0];
@@ -38,7 +38,7 @@
 
             this.$store.commit('setYear', year);
             this.$store.commit('setMonth', month);
-            this.$store.commit('setDay', day);
+            this.$store.dispatch('selectDate', day);
         },
         props: {
             date: {
