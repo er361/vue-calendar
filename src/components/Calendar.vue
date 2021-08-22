@@ -1,5 +1,11 @@
 <template>
     <div>
+        <select style="margin-right: 10px; float: left"
+                v-model="locale">
+            <option value="ru">RU</option>
+            <option value="en">EN</option>
+        </select>
+
         <div class="calendar">
             <dateChanger/>
             <days class="daysTable"/>
@@ -69,17 +75,28 @@
                 }
             }
         },
+        computed: {
+            locale: {
+                set(val) {
+                    this.$store.commit('setLocale',val)
+                },
+                get() {
+                    return this.$store.state.locale;
+                }
+            }
+        },
     }
 </script>
 <style scoped>
     .calendar {
         margin: 0 10px 0 0;
-        border: 1px solid cadetblue;
+        border: 2px solid cadetblue;
         font-size: 20px;
         width: 270px;
-        height: 200px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 </style>

@@ -9,8 +9,12 @@ export default new Vuex.Store({
         month: 0,
         day: 0,
         selectedMonth: 0,
+        locale: 'ru',
     },
     mutations: {
+        setLocale(state, locale) {
+            state.locale = locale;
+        },
         setYear(state, year) {
             state.year = parseInt(year);
         },
@@ -32,8 +36,8 @@ export default new Vuex.Store({
     },
     getters: {
         monthYear(state) {
-            let month = new Date(state.year, state.month, 0);
-            return month.toLocaleString('en-EN', {month: 'short'}) + ' ' + state.year;
+            let month = new Date(state.year, state.month);
+            return month.toLocaleString(state.locale, {month: 'short'}) + ' ' + state.year;
         },
         canShowSelect(state) {
             return state.month === state.selectedMonth;
@@ -41,10 +45,13 @@ export default new Vuex.Store({
         maxDayOfMonth(state) {
             return new Date(state.year, state.month, 0).getDate();
         },
-
+        fullDate(state) {
+            let date = new Date(state.year, state.selectedMonth, state.day);
+            return new Intl.DateTimeFormat(state.locale).format(date)
+        },
     },
     actions: {
-        selectDay({commit, state}, day) {
+        selectDate({commit, state}, day) {
             commit('setDay', day)
             commit('selectMonth', state.month)
         }
