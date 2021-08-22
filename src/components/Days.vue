@@ -1,42 +1,51 @@
 <template>
     <div class="grid">
-        <span v-for="index in maxDayNum"
-              :key="index"
-              style="cursor: pointer"
-              @click="setActive(index)"
+        <span v-for="dayNumber in maxDayOfMonth"
+              :key="dayNumber"
+              @click="selectDay(dayNumber)"
               class="day"
-              :class="{active: activeNumber === index}"
+              :class="{selected: (day === dayNumber) && canShowSelect}"
         >
-            {{index}}
-            <br v-if="[1,2,3,4].includes(index / 7)">
+            {{dayNumber}}
+            <br v-if="[1,2,3,4].includes(dayNumber / 7)">
         </span>
     </div>
 
 </template>
 
 <script>
+    import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
+
     export default {
         name: 'Days',
-        props:['maxDayNum'],
-        data() {
-            return {
-                activeNumber: null
-            }
-        },
         methods: {
-            setActive(index) {
-                this.activeNumber = index;
-            },
-            getDate() {
-                console.log('date')
-            }
-        }
+            ...mapMutations([
+                'setDay'
+            ]),
+            ...mapActions([
+                'selectDay'
+            ])
+        },
+        computed:{
+            ...mapState([
+               'day','month','year'
+            ]),
+            ...mapGetters([
+                'canShowSelect',
+                'maxDayOfMonth'
+            ]),
+
+        },
     }
 
 </script>
 <style scoped>
-    .active {
+    .selected {
         border: 1px solid aquamarine;
+    }
+
+    .day{
+        cursor: pointer
     }
 
     .grid {

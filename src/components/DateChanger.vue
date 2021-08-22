@@ -2,28 +2,40 @@
     <div class="changer">
 
         <font-awesome-icon icon="arrow-left"
-                           @click="$emit('changeMonth',monthNumber--)"/>
-        Changer dates
+                           class="changeDateArrow"
+                           @click="decrementMonth"/>
+        {{monthYear}}
         <font-awesome-icon icon="arrow-right"
-                           @click="$emit('changeMonth',monthNumber++)"/>
+                           class="changeDateArrow"
+                           @click="incrementMonth"/>
 
     </div>
 </template>
 <script>
+    import {mapGetters, mapMutations} from "vuex";
+
     export default {
         name: 'dateChanger',
-        data(){
-            return {
-                monthNumber: 1
-            }
+        methods:{
+          ...mapMutations([
+              'incrementMonth',
+              'decrementMonth'
+          ])
+        },
+        computed:{
+            ...mapGetters([
+                'monthYear'
+            ])
         }
     }
 </script>
 <style scoped>
-    .changer{
+    .changer {
         display: flex;
         justify-content: space-between;
         padding: 5px 10px;
     }
-
+    .changeDateArrow{
+        cursor: pointer;
+    }
 </style>

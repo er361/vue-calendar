@@ -1,8 +1,13 @@
 <template>
     <div id="app">
-        <Calendar class="calendar"/>
+        <Calendar @selectDate="setDate"
+                  class="calendar"
+                  date="2021-02-28"
+        />
         <div>
-            <input type="text">
+            <label for="curDate">Текущая дата</label>
+            <br>
+            <input id="curDate" type="text" :value="date">
         </div>
 
     </div>
@@ -15,6 +20,16 @@
         name: 'App',
         components: {
             Calendar
+        },
+        data(){
+          return {
+              date: '',
+          }
+        },
+        methods:{
+            setDate(val){
+                this.date = val;
+            }
         }
     }
 </script>
